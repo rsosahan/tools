@@ -1,357 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>R.S Osahan Machine Tools</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #f4f6f9;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>R.S Osahan Machine Tools</title>
+  <style>
+    :root {
+      --primary: #003087;
+      --accent: #005bb5;
+      --light-bg: #f4f6f9;
+    }
 
-        .top-contact {
-            background: white;
-            color: black;
-            padding: 10px 0;
-            text-align: right;
-            font-size: 16px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background: var(--light-bg);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
 
-        .top-contact a {
-            color: black;
-            text-decoration: none;
-            margin: 0 15px;
-            transition: opacity 0.3s;
-        }
+    .top-contact {
+      background: white;
+      color: black;
+      padding: 10px 20px;
+      text-align: right;
+      font-size: 16px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
 
-        .top-contact a:hover {
-            opacity: 0.8;
-        }
+    .top-contact a {
+      color: black;
+      text-decoration: none;
+      margin-left: 15px;
+      transition: opacity 0.3s;
+    }
 
-        header {
-            text-align: center;
-            padding: 20px;
-            background: white;
-            color: black;
-	    padding:30px;
-        }
+    .top-contact a:hover {
+      opacity: 0.8;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 40px;
-            font-weight: 600;
-        }
+    header {
+      padding: 80px 20px 20px;
+      background: white;
+      text-align: center;
+      color: black;
+    }
 
-        nav {
-            background-color: #333;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-        }
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+      font-weight: 600;
+    }
 
-        nav a {
-            color: white;
-            padding: 12px 20px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
+    nav {
+      background: #333;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px 0;
+    }
 
-        nav a:hover {
-            background-color: #555;
-            border-radius: 4px;
-        }
+    nav a {
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
 
-        .container {
-            max-width: 1000px;
-            margin: 160px auto 30px;
-            background: #ffffff;
-            padding: 0 30px 30px;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+    nav a:hover {
+      background-color: #555;
+      border-radius: 4px;
+    }
 
-        .slider-container {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
-            margin: 20px 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            background: #fff;
-        }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
 
-        .slides {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.5s ease-in-out;
-        }
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
 
-        .slide {
-            min-width: 100%;
-            height: 100%;
-            flex-shrink: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #f0f0f0;
-        }
+    .slides {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
 
-        .slide img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 8px;
-        }
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f0f0f0;
+    }
 
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 12px;
-            cursor: pointer;
-            font-size: 20px;
-            transition: background 0.3s, transform 0.2s;
-            z-index: 10;
-            border-radius: 50%;
-        }
+    .slide img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+    }
 
-        .nav-btn:hover {
-            background: rgba(0, 0, 0, 0.8);
-            transform: translateY(-50%) scale(1.1);
-        }
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      z-index: 2;
+      border-radius: 50%;
+    }
 
-        .prev {
-            left: 10px;
-        }
+    .nav-btn:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
 
-        .next {
-            right: 10px;
-        }
+    .prev { left: 10px; }
+    .next { right: 10px; }
 
-        .dots {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-            z-index: 10;
-        }
+    .dots {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-        }
+    .dot {
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      cursor: pointer;
+    }
 
-        .dot.active {
-            background: #fff;
-            transform: scale(1.2);
-        }
+    .dot.active {
+      background: white;
+    }
 
-        .dot:hover {
-            background: rgba(255, 255, 255, 0.8);
-        }
+    h2 {
+      color: var(--primary);
+      font-size: 28px;
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
 
-        section {
-            display: none;
-            padding: 20px;
-            animation: fadeIn 0.5s ease-in;
-        }
+    h3 {
+      color: var(--accent);
+      font-size: 20px;
+      margin-top: 25px;
+    }
 
-        section.active {
-            display: block;
-        }
+    p, ul {
+      font-size: 16px;
+      margin: 10px 0;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+    ul {
+      padding-left: 20px;
+    }
 
-        h2 {
-            color: #003087;
-            font-size: 28px;
-            border-bottom: 3px solid #005bb5;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
-        }
+    .image-container img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
 
-        h3 {
-            color: #005bb5;
-            font-size: 22px;
-            margin-top: 25px;
-        }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #666;
+      padding: 20px 10px;
+      border-top: 1px solid #ddd;
+    }
 
-        p {
-            font-size: 16px;
-            margin: 10px 0;
-            line-height: 1.7;
-        }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
 
-        ul {
-            margin: 15px 0;
-            padding-left: 20px;
-        }
+    footer a:hover {
+      text-decoration: underline;
+    }
 
-        li {
-            margin-bottom: 8px;
-        }
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 28px;
+      }
 
-        .image-container {
-            text-align: center;
-            margin: 20px 0;
-        }
+      nav a {
+        padding: 10px;
+        font-size: 14px;
+      }
 
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
+      .slider-container {
+        height: 220px;
+      }
 
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 14px;
-            color: #666;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-        }
+      .top-contact {
+        font-size: 14px;
+        padding: 8px 10px;
+        text-align: center;
+      }
 
-        footer a {
-            color: #005bb5;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+      .container {
+        margin: 20px 10px;
+        padding: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Top Contact Bar -->
-    <div class="top-contact">
-        <a href="tel:+919041704430">Phone: +91 9041704430</a>
+  <div class="top-contact">
+    <a href="tel:+919041704430">📞 +91 90417 04430</a>
+  </div>
+
+  <header>
+    <h1>R.S Osahan Machine Tools</h1>
+  </header>
+
+  <nav>
+    <a href="https://rsosahan.github.io/tools/index.html">Home</a>
+    <a href="https://rsosahan.github.io/tools/aboutus.html">About Us</a>
+    <a href="https://rsosahan.github.io/tools/businessproposal.html">Business Proposal</a>
+    <a href="https://rsosahan.github.io/tools/location.html">Visit Us</a>
+    <a href="https://rsosahan.github.io/tools/contactus.html">Contact Us</a>
+  </nav>
+
+  <div class="container">
+    <div class="slider-container">
+      <div class="slides">
+        <div class="slide"><img src="https://raw.githubusercontent.com/rsosahan/tools/refs/heads/main/1.png" alt="Machine Workshop"></div>
+        <div class="slide"><img src="https://raw.githubusercontent.com/rsosahan/tools/refs/heads/main/2.png" alt="Business Collaboration"></div>
+        <div class="slide"><img src="https://raw.githubusercontent.com/rsosahan/tools/refs/heads/main/3.png" alt="All Gear Head Machine"></div>
+        <div class="slide"><img src="https://raw.githubusercontent.com/rsosahan/tools/refs/heads/main/4.png" alt="Heavy Rolling Track"></div>
+      </div>
+      <button class="nav-btn prev" onclick="moveSlide(-1)">❮</button>
+      <button class="nav-btn next" onclick="moveSlide(1)">❯</button>
+      <div class="dots">
+        <span class="dot active" onclick="goToSlide(0)"></span>
+        <span class="dot" onclick="goToSlide(1)"></span>
+        <span class="dot" onclick="goToSlide(2)"></span>
+        <span class="dot" onclick="goToSlide(3)"></span>
+      </div>
     </div>
 
-    <header>
-        <h1>R.S Osahan Machine Tools</h1>
-    </header>
+    <section>
+      <h2>Our Story</h2>
+      <p>Founded in 2002, R.S Osahan Machine Tools has been a trusted name in the machinery industry...</p>
 
-    <!-- Navigation Bar -->
-    <nav>
-        <a href="https://rsosahan.github.io/tools/index.html">Home</a>
-        <a href="https://rsosahan.github.io/tools/aboutus.html">About Us</a>
-        <a href="https://rsosahan.github.io/tools/businessproposal.html">Business Proposal</a>
-        <a href="https://rsosahan.github.io/tools/location.html">Visit Us</a>
-        <a href="https://rsosahan.github.io/tools/contactus.html">Contact Us</a>
-    </nav>
+      <h3>Our Mission</h3>
+      <p>We provide superior machine tools and services that meet the highest standards of quality and efficiency.</p>
 
-    <div class="container">
-        <!-- Image Slider -->
-        <div class="slider-container">
-            <div class="slides">
-                <div class="slide"><img src="https://raw.githubusercontent.com/rsosahan/tools/refs/heads/main/1.png" alt="Machine Workshop"></div>
-                <div class="slide"><img src="https://raw.githubusercontent.com/rsosahan/tools/refs/heads/main/2.png" alt="Business Collaboration"></div>
-                <div class="slide"><img src="https://raw.githubusercontent.com/rsosahan/tools/refs/heads/main/3.png" alt="All Gear Head Machine"></div>
-                <div class="slide"><img src="https://raw.githubusercontent.com/rsosahan/tools/refs/heads/main/4.png" alt="Heavy Rolling Track"></div>
-            </div>
-            <button class="nav-btn prev" onclick="moveSlide(-1)">❮</button>
-            <button class="nav-btn next" onclick="moveSlide(1)">❯</button>
-            <div class="dots">
-                <span class="dot active" onclick="goToSlide(0)"></span>
-                <span class="dot" onclick="goToSlide(1)"></span>
-                <span class="dot" onclick="goToSlide(2)"></span>
-                <span class="dot" onclick="goToSlide(3)"></span>
-            </div>
-        </div>
+      <h3>Our Values</h3>
+      <ul>
+        <li><strong>Innovation:</strong> Constantly improving products and services.</li>
+        <li><strong>Quality:</strong> Delivering precision and durability.</li>
+        <li><strong>Customer Satisfaction:</strong> Prioritizing clients' needs.</li>
+        <li><strong>Integrity:</strong> Conducting business with honesty and transparency.</li>
+      </ul>
 
-        <!-- About Section -->
-        <section id="about" class="active">
-            <h2>Our Story</h2>
-            <p>Founded in 2002, R.S Osahan Machine Tools has been a trusted name in the machinery industry. With a focus on high-quality and durable machinery, we have been dedicated to providing innovative solutions that help enhance manufacturing processes across India.</p>
+      <h3>Our Facilities</h3>
+      <p>We are equipped with state-of-the-art machinery and a skilled engineering team offering customized industrial solutions.</p>
+    </section>
 
-            <h3>Our Mission</h3>
-            <p>At R.S Osahan, we are committed to providing superior machine tools and services that meet the highest standards of quality and efficiency. Our mission is to deliver products that not only meet the needs of our clients but also help them achieve their long-term goals.</p>
+    <footer>
+      Created by <a href="https://maps.app.goo.gl/FGe8DR8S9o8t4Qj86">R.S Osahan Machine Tools</a> © 2025. All rights reserved.
+    </footer>
+  </div>
 
-            <h3>Our Values</h3>
-            <ul>
-                <li><strong>Innovation:</strong> Constantly improving products and services.</li>
-                <li><strong>Quality:</strong> Delivering machines that perform with precision and durability.</li>
-                <li><strong>Customer Satisfaction:</strong> Prioritizing customers' needs.</li>
-                <li><strong>Integrity:</strong> Conducting business with honesty and transparency.</li>
-            </ul>
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelector('.slides');
+    const totalSlides = document.querySelectorAll('.slide').length;
+    const dots = document.querySelectorAll('.dot');
+    let slideInterval;
 
-            <h3>Our Facilities</h3>
-            <p>Our manufacturing facility is equipped with state-of-the-art machinery and a team of skilled engineers and technicians. We deliver the best products to our clients with customized industrial solutions.</p>
-        </section>
+    function updateDots() {
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
 
-        <footer>
-            Created by <a href="https://maps.app.goo.gl/FGe8DR8S9o8t4Qj86">R.S Osahan Machine Tools</a> © 2025. All rights reserved.
-        </footer>
-    </div>
+    function moveSlide(direction) {
+      currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+      slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+      updateDots();
+      resetInterval();
+    }
 
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelector('.slides');
-        const totalSlides = document.querySelectorAll('.slide').length;
-        const dots = document.querySelectorAll('.dot');
-        let slideInterval;
+    function goToSlide(index) {
+      currentSlide = index;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+      updateDots();
+      resetInterval();
+    }
 
-        function updateDots() {
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
-            });
-        }
+    function startSlideShow() {
+      slideInterval = setInterval(() => moveSlide(1), 5000);
+    }
 
-        function moveSlide(direction) {
-            currentSlide += direction;
-            if (currentSlide < 0) currentSlide = totalSlides - 1;
-            if (currentSlide >= totalSlides) currentSlide = 0;
-            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-            updateDots();
-            resetInterval();
-        }
+    function resetInterval() {
+      clearInterval(slideInterval);
+      startSlideShow();
+    }
 
-        function goToSlide(index) {
-            currentSlide = index;
-            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-            updateDots();
-            resetInterval();
-        }
-
-        function startSlideShow() {
-            slideInterval = setInterval(() => moveSlide(1), 5000);
-        }
-
-        function resetInterval() {
-            clearInterval(slideInterval);
-            startSlideShow();
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            startSlideShow();
-        });
-    </script>
+    document.addEventListener('DOMContentLoaded', startSlideShow);
+  </script>
 </body>
 </html>
