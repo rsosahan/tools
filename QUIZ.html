@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network+ Ports Quiz Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #score {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        #question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        #options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #feedback {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Network+ Ports Quiz</h1>
+        <div id="score">Score: <span id="score-value">0</span></div>
+        <div id="question"></div>
+        <div id="options"></div>
+        <div id="feedback"></div>
+        <button id="next-btn" onclick="nextQuestion()">Next Question</button>
+    </div>
+
+    <script>
+        // Ports and their associated protocols/services
+        const ports = [
+            { port: "20", answer: "FTP (Data Transfer)" },
+            { port: "21", answer: "FTP (Control)" },
+            { port: "22", answer: "SSH / SFTP" },
+            { port: "23", answer: "Telnet" },
+            { port: "25", answer: "SMTP (Unencrypted)" },
+            { port: "53", answer: "DNS" },
+            { port: "67", answer: "DHCP (Server)" },
+            { port: "68", answer: "DHCP (Client)" },
+            { port: "69", answer: "TFTP" },
+            { port: "80", answer: "HTTP" },
+            { port: "88", answer: "Kerberos" },
+            { port: "110", answer: "POP3 (Unencrypted)" },
+            { port: "123", answer: "NTP" },
+            { port: "135", answer: "RPC" },
+            { port: "137", answer: "NetBIOS Name Service" },
+            { port: "138", answer: "NetBIOS Datagram Service" },
+            { port: "139", answer: "NetBIOS Session Service" },
+            { port: "143", answer: "IMAP (Unencrypted)" },
+            { port: "161", answer: "SNMP (Agent)" },
+            { port: "162", answer: "SNMP (Traps)" },
+            { port: "179", answer: "BGP" },
+            { port: "389", answer: "LDAP (Unencrypted)" },
+            { port: "443", answer: "HTTPS" },
+            { port: "445", answer: "SMB" },
+            { port: "514", answer: "Syslog" },
+            { port: "587", answer: "SMTP (TLS/STARTTLS)" },
+            { port: "636", answer: "LDAPS" },
+            { port: "993", answer: "IMAP (SSL/TLS)" },
+            { port: "995", answer: "POP3 (SSL/TLS)" },
+            { port: "1433", answer: "Microsoft SQL Server" },
+            { port: "1521", answer: "Oracle DB" },
+            { port: "1701", answer: "L2TP" },
+            { port: "1723", answer: "PPTP" },
+            { port: "1812", answer: "RADIUS (Authentication)" },
+            { port: "1813", answer: "RADIUS (Accounting)" },
+            { port: "3260", answer: "iSCSI" },
+            { port: "3306", answer: "MySQL" },
+            { port: "3389", answer: "RDP" },
+            { port: "5004", answer: "RTP (VoIP)" },
+            { port: "5060", answer: "SIP (Unencrypted)" },
+            { port: "5061", answer: "SIP (TLS)" },
+            { port: "8080", answer: "HTTP Alternate" },
+            { port: "8443", answer: "HTTPS Alternate" },
+            { port: "16384–32767", answer: "RTP (Dynamic Range)" }
+        ];
+
+        // Game variables
+        let currentQuestion = {};
+        let score = 0;
+        let usedQuestions = [];
+
+        // DOM elements
+        const questionEl = document.getElementById("question");
+        const optionsEl = document.getElementById("options");
+        const feedbackEl = document.getElementById("feedback");
+        const scoreEl = document.getElementById("score-value");
+
+        // Start the game
+        nextQuestion();
+
+        function nextQuestion() {
+            // Reset feedback and options
+            feedbackEl.textContent = "";
+            optionsEl.innerHTML = "";
+
+            // Check if all questions have been used
+            if (usedQuestions.length === ports.length) {
+                questionEl.textContent = "Quiz Complete!";
+                optionsEl.textContent = `Final Score: ${score} / ${ports.length}`;
+                document.getElementById("next-btn").style.display = "none";
+                return;
+            }
+
+            // Get a new random question
+            do {
+                currentQuestion = ports[Math.floor(Math.random() * ports.length)];
+            } while (usedQuestions.includes(currentQuestion.port));
+            usedQuestions.push(currentQuestion.port);
+
+            // Display question
+            questionEl.textContent = `What protocol/service uses port ${currentQuestion.port}?`;
+
+            // Generate options (correct answer + 3 random wrong answers)
+            const allAnswers = ports.map(p => p.answer);
+            const wrongAnswers = allAnswers.filter(a => a !== currentQuestion.answer);
+            const options = [currentQuestion.answer];
+            while (options.length < 4) {
+                const randomWrong = wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)];
+                if (!options.includes(randomWrong)) options.push(randomWrong);
+            }
+            shuffleArray(options);
+
+            // Display options as buttons
+            options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsEl.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selected) {
+            if (selected === currentQuestion.answer) {
+                score++;
+                feedbackEl.textContent = "Correct!";
+                feedbackEl.className = "correct";
+            } else {
+                feedbackEl.textContent = `Incorrect. The correct answer is ${currentQuestion.answer}.`;
+                feedbackEl.className = "incorrect";
+            }
+            scoreEl.textContent = score;
+            disableButtons();
+        }
+
+        function disableButtons() {
+            const buttons = optionsEl.getElementsByTagName("button");
+            for (let button of buttons) {
+                button.disabled = true;
+            }
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+    </script>
+</body>
+</html>

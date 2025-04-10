@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - RS Osahan Machine Tools</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background-color: #222;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+            nav a {
+                color: white;
+                padding: 12px 20px;
+                text-decoration: none;
+                font-weight: bold;
+                transition: background 0.3s;
+            }
+
+                nav a:hover {
+                    background-color: #555;
+                    border-radius: 4px;
+                }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+        }
+
+        input, textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #222;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            button:hover {
+                background-color: #444;
+            }
+
+        .flex-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .form-container, .image-container {
+            flex: 1;
+            min-width: 300px;
+        }
+
+            .image-container img {
+                max-width: 100%;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+            }
+
+        .contact-details {
+            margin-top: 20px;
+            font-size: 16px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+   
+
+    <nav>
+        <a href="file:///C:/Users/TAJINDER/Desktop/HTML/INDEX.HTML">Home</a>
+        <a href="file:///C:/Users/TAJINDER/Desktop/HTML/aboutus.HTML">About Us</a>
+        <a href="file:///C:/Users/TAJINDER/Desktop/HTML/businessproposal.html">Business Proposal</a>
+        <a href="file:///C:/Users/TAJINDER/Desktop/HTML/location.HTML">Visit Us</a>
+        <a href="file:///C:/Users/TAJINDER/Desktop/HTML/contactus.HTML">Contact Us</a>
+    </nav>
+
+    <div class="container" id="contact">
+        <h2>Contact Us</h2>
+        <div class="flex-wrapper">
+
+            <!-- Form -->
+            <div class="form-container">
+                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <label for="name">Full Name:</label>
+                    <input type="text" name="name" id="name" required>
+
+                    <label for="email">Email Address:</label>
+                    <input type="email" name="email" id="email" required>
+
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" name="phone" id="phone" required>
+
+                    <label for="message">Your Message:</label>
+                    <textarea name="message" id="message" rows="5" required></textarea>
+
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+
+            <!-- Image + Contact Info -->
+            <div class="image-container">
+                <img src="file:///C:/Users/TAJINDER/Desktop/HTML/1.png" alt="Gear Head Lathe">
+                <div class="contact-details">
+                    <p><strong>Email:</strong> Ranjit66m@gmail.com</p>
+                    <p><strong>Phone:</strong> +91 9041704430</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 RS Osahan Machine Tools. All rights reserved.
+    </footer>
+
+</body>
+</html>

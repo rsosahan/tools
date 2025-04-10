@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network+ Ports Quiz Mania</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', Arial, sans-serif;
+            background: #34495e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 450px;
+            position: relative;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            color: #ff4500;
+            text-shadow: 2px 2px 4px #fff;
+            margin: 0;
+        }
+
+        #score {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        #progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        #progress {
+            height: 100%;
+            background: #32cd32;
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        #question {
+            font-size: 22px;
+            color: #2f4f4f;
+            margin-bottom: 20px;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        #options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        button {
+            padding: 12px;
+            background: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        button:hover {
+            background: #ff4500;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        #feedback {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            animation: bounceIn 0.5s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            60% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        .correct { color: #32cd32; }
+        .incorrect { color: #ff0000; }
+
+        #next-btn {
+            background: #1e90ff;
+            margin-top: 20px;
+        }
+
+        #next-btn:hover {
+            background: #4169e1;
+        }
+
+        #confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+            text-shadow: 1px 1px 2px #fff;
+        }
+
+        footer a {
+            color: #ff4500;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ports Quiz N10-009.</h1>
+        <div id="score">Score: <span id="score-value">0</span></div>
+        <div id="progress-bar"><div id="progress"></div></div>
+        <div id="question"></div>
+        <div id="options"></div>
+        <div id="feedback"></div>
+        <button id="next-btn" onclick="nextQuestion()">Next Question</button>
+        <footer>
+            Created by <a href="#">Tajinder</a> &copy; 2025. All rights reserved.
+        </footer>
+    </div>
+    <canvas id="confetti"></canvas>
+
+    <script>
+        // Ports data
+        const ports = [
+            { port: "20", answer: "FTP (Data Transfer)" },
+            { port: "21", answer: "FTP (Control)" },
+            { port: "22", answer: "SSH / SFTP" },
+            { port: "23", answer: "Telnet" },
+            { port: "25", answer: "SMTP (Unencrypted)" },
+            { port: "53", answer: "DNS" },
+            { port: "67", answer: "DHCP (Server)" },
+            { port: "68", answer: "DHCP (Client)" },
+            { port: "69", answer: "TFTP" },
+            { port: "80", answer: "HTTP" },
+            { port: "88", answer: "Kerberos" },
+            { port: "110", answer: "POP3 (Unencrypted)" },
+            { port: "123", answer: "NTP" },
+            { port: "135", answer: "RPC" },
+            { port: "137", answer: "NetBIOS Name Service" },
+            { port: "138", answer: "NetBIOS Datagram Service" },
+            { port: "139", answer: "NetBIOS Session Service" },
+            { port: "143", answer: "IMAP (Unencrypted)" },
+            { port: "161", answer: "SNMP (Agent)" },
+            { port: "162", answer: "SNMP (Traps)" },
+            { port: "179", answer: "BGP" },
+            { port: "389", answer: "LDAP (Unencrypted)" },
+            { port: "443", answer: "HTTPS" },
+            { port: "445", answer: "SMB" },
+            { port: "514", answer: "Syslog" },
+            { port: "587", answer: "SMTP (TLS/STARTTLS)" },
+            { port: "636", answer: "LDAPS" },
+            { port: "993", answer: "IMAP (SSL/TLS)" },
+            { port: "995", answer: "POP3 (SSL/TLS)" },
+            { port: "1433", answer: "Microsoft SQL Server" },
+            { port: "1521", answer: "Oracle DB" },
+            { port: "1701", answer: "L2TP" },
+            { port: "1723", answer: "PPTP" },
+            { port: "1812", answer: "RADIUS (Authentication)" },
+            { port: "1813", answer: "RADIUS (Accounting)" },
+            { port: "3260", answer: "iSCSI" },
+            { port: "3306", answer: "MySQL" },
+            { port: "3389", answer: "RDP" },
+            { port: "5004", answer: "RTP (VoIP)" },
+            { port: "5060", answer: "SIP (Unencrypted)" },
+            { port: "5061", answer: "SIP (TLS)" },
+            { port: "8080", answer: "HTTP Alternate" },
+            { port: "8443", answer: "HTTPS Alternate" },
+            { port: "16384–32767", answer: "RTP (Dynamic Range)" }
+        ];
+
+        // Game variables
+        let currentQuestion = {};
+        let score = 0;
+        let usedQuestions = [];
+
+        // DOM elements
+        const questionEl = document.getElementById("question");
+        const optionsEl = document.getElementById("options");
+        const feedbackEl = document.getElementById("feedback");
+        const scoreEl = document.getElementById("score-value");
+        const progressEl = document.getElementById("progress");
+
+        // Sound effects
+        const correctSound = new Audio('https://www.soundjay.com/buttons/beep-01a.mp3');
+        const wrongSound = new Audio('https://www.soundjay.com/buttons/beep-02.mp3');
+
+        // Start the game
+        nextQuestion();
+
+        function nextQuestion() {
+            feedbackEl.textContent = "";
+            optionsEl.innerHTML = "";
+
+            if (usedQuestions.length === ports.length) {
+                endGame();
+                return;
+            }
+
+            do {
+                currentQuestion = ports[Math.floor(Math.random() * ports.length)];
+            } while (usedQuestions.includes(currentQuestion.port));
+            usedQuestions.push(currentQuestion.port);
+
+            questionEl.textContent = `What uses port ${currentQuestion.port}?`;
+            progressEl.style.width = `${(usedQuestions.length / ports.length) * 100}%`;
+
+            const allAnswers = ports.map(p => p.answer);
+            const wrongAnswers = allAnswers.filter(a => a !== currentQuestion.answer);
+            const options = [currentQuestion.answer];
+            while (options.length < 4) {
+                const randomWrong = wrongAnswers[Math.floor(Math.random() * wrongAnswers.length)];
+                if (!options.includes(randomWrong)) options.push(randomWrong);
+            }
+            shuffleArray(options);
+
+            options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsEl.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selected) {
+            if (selected === currentQuestion.answer) {
+                score++;
+                feedbackEl.textContent = "Awesome!";
+                feedbackEl.className = "correct";
+                correctSound.play();
+            } else {
+                feedbackEl.textContent = `Oops! It's ${currentQuestion.answer}.`;
+                feedbackEl.className = "incorrect";
+                wrongSound.play();
+            }
+            scoreEl.textContent = score;
+            disableButtons();
+        }
+
+        function disableButtons() {
+            const buttons = optionsEl.getElementsByTagName("button");
+            for (let button of buttons) {
+                button.disabled = true;
+            }
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function endGame() {
+            questionEl.textContent = "Game Over!";
+            optionsEl.innerHTML = `<p>Final Score: ${score} / ${ports.length}</p>`;
+            feedbackEl.textContent = "Great job, Network Ninja!";
+            document.getElementById("next-btn").style.display = "none";
+            launchConfetti();
+        }
+
+        // Confetti effect
+        function launchConfetti() {
+            const canvas = document.getElementById("confetti");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const confetti = [];
+            for (let i = 0; i < 100; i++) {
+                confetti.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 10 + 2,
+                    d: Math.random() + 1,
+                    color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                    tilt: Math.random() * 10 - 5
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                confetti.forEach((c, i) => {
+                    c.y += c.d;
+                    c.tilt += 0.1;
+                    ctx.beginPath();
+                    ctx.lineWidth = c.r;
+                    ctx.strokeStyle = c.color;
+                    ctx.moveTo(c.x + c.tilt + c.r / 2, c.y);
+                    ctx.lineTo(c.x + c.tilt - c.r / 2, c.y + c.r);
+                    ctx.stroke();
+                    if (c.y > canvas.height) confetti[i] = {
+                        x: Math.random() * canvas.width,
+                        y: -10,
+                        r: c.r,
+                        d: c.d,
+                        color: c.color,
+                        tilt: Math.random() * 10 - 5
+                    };
+                });
+                requestAnimationFrame(draw);
+            }
+            draw();
+        }
+    </script>
+</body>
+</html>
